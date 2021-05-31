@@ -5,16 +5,23 @@
 					<div class="dialog-description">
 						<?=htmlspecialchars_decode($descBaogia['noidung'.$lang])?>
 					</div>
-					<form method="post" class="dialog-main">
+					<form method="post" class="dialog-main form-baogia_popup validation-baogia_popup">
 						<input name="name" required placeholder="Họ tên (*)" />
 						<input name="phone" required placeholder="Điện thoại (*)" />
 						<input name="email" type="email" placeholder="Email (nếu có)" />
 						<input name="address" required placeholder="Địa chỉ (*)" />
 						<input type="hidden" name="content" value="Yêu cầu hỗ trợ">
-						<select name="id_car" required>
+						<select name="loaixe" required>
 							<option value="">Chọn dòng xe quan tâm</option>
-							<option value="1">Xe VinFast Fadil</option><option value="7">VinFast VFE34 2021</option><option value="2">Xe VinFast Lux A2.0</option><option value="3">Xe VinFast Lux SA2.0</option><option value="9">VinFast V8 President </option>						</select>
-						<button type="submit" class="btnConfirm" name="task" value="request">Gửi ngay</button> <a class="dialog-close" href="javascript:void(0);" onclick="$('.module-modal').fadeOut();">Đóng lại</a>
+							<?php foreach($proall as $v){ ?>
+							<option value='<?=$v['ten'.$lang]?>'><?=$v['ten'.$lang]?></option>
+							<?php } ?>				
+						</select>
+						<div class="text-center w-clear">
+							<input type="submit" class="btnConfirm" name="submit-baogia_popup" value="Gửi ngay" disabled>
+						</div>
+						<a class="dialog-close" href="javascript:void(0);" onclick="$('.module-modal').fadeOut();">Đóng lại</a>
+                    	<input type="hidden" name="recaptcha_response_baogia_popup" id="recaptchaResponseBaogiaPopup">
 					</form>
 					
 				</div>

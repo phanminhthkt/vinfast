@@ -42,7 +42,7 @@
     $config['product'][$nametype]['gia'] = true;
     $config['product'][$nametype]['giamoi'] = false;
     $config['product'][$nametype]['giacu'] = true;
-    $config['product'][$nametype]['phibienso'] = true;
+    $config['product'][$nametype]['phibienso'] = false;
     $config['product'][$nametype]['phisudungduongbo'] = true;
     $config['product'][$nametype]['phikiemdinh'] = true;
     $config['product'][$nametype]['baohiemtnds'] = true;

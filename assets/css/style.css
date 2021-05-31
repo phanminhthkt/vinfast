@@ -43,6 +43,7 @@ p {
 img {
   max-width: 100%;
 }
+.w-clear:after{display:block;content:"";clear:both;}
 .hidden {
     display: none;
 }
@@ -144,6 +145,10 @@ img {
   content: " ";
   display: table;
 }
+.scale-img{overflow:hidden;display:block;}
+.scale-img img{-webkit-transition:0.3s ease-out;-moz-transition:0.3s ease-out;-o-transition:0.3s ease-out;transition:0.3s ease-out;-moz-transform:scale(1,1);-webkit-transform:scale(1,1);-o-transform:scale(1,1);-ms-transform:scale(1,1);transform:scale(1,1);}
+.scale-img:hover > img{-webkit-transition:0.3s ease-out;-moz-transition:0.3s ease-out;-o-transition:0.3s ease-out;transition:0.3s ease-out;-moz-transform:scale(1.1,1.1);-webkit-transform:scale(1.1,1.1);-o-transform:scale(1.1,1.1);-ms-transform:scale(1.1,1.1);transform:scale(1.1,1.1);}
+
 .flex-direction-nav a:before {
   content: none !important;
 }
@@ -223,6 +228,9 @@ img {
   display: table;
   margin: 10px auto 0;
   text-decoration: underline;
+  clear: both;
+  display: block;
+  text-align: center;
 }
 .dialog-title {
   text-align: center;
@@ -246,7 +254,7 @@ img {
 }
 .dialog-main input,
 .dialog-main select {
-  float: left;
+  /* float: left; */
   width: 100%;
   border: 1px solid #ced4da;
   padding: 10px;
@@ -254,23 +262,24 @@ img {
   height: 40px;
   margin-bottom: 10px;
   font-family: inherit;
-  text-transform: uppercase;
   background: #fff;
-  font-size: 13px;
+  font-size: 15px;
 }
-.dialog-main button {
+.dialog-main input[type='submit'] {
+  width: 120px;
   border: 2px solid;
   background: #fff;
   height: 40px;
   padding: 0 20px;
-  display: table;
-  margin: auto;
   cursor: pointer;
   font-family: inherit;
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: 1px;
   font-weight: bold;
+  /* margin: 0 auto; */
+  clear: both;
+  display: inline-block;
 }
 @font-face {
   font-family: Nobel;
@@ -417,8 +426,8 @@ header #header-car:before {
   width: 100%;
   height: 100%;
   position: absolute;
-  background: url(../fonts/main/dropdown-shadow.gif) repeat-x top left,
-    url(../fonts/main/dropdown-shadow.gif) repeat-x bottom left;
+  background: url(../images/dropdown-shadow.gif) repeat-x top left,
+    url(../images/dropdown-shadow.gif) repeat-x bottom left;
   padding-bottom: 2px;
 }
 header .header-car {
@@ -1206,3 +1215,102 @@ article tr th {
 .social-plugin{display:flex;justify-content:flex-start;margin-top:10px;}
 .social-plugin .at-share-btn{margin-bottom:0px!important;}
 .social-plugin .zalo-share-button{margin-left:3px;}
+/*Lái thử*/
+.page-form .form-group {
+  border-bottom: 1px solid #e2e2e2;
+  padding: 20px 0 30px;
+  }
+.page-form .form-group h2 {
+    margin: 0 auto 15px;
+    font-size: 20px;
+    font-weight: 300;
+    text-transform: uppercase;
+    display: table;
+}
+  .page-form.booking .form-group p {
+  width: 50%;
+  float: left;
+  margin: 10px 0;
+  }
+  .page-form .form-group p.booking-preview-vehicle {
+  margin-top: -55px;
+  padding-left: 80px;
+  box-sizing: border-box;
+  }
+  .page-form .form-group p.booking-preview-vehicle img{
+  max-width: 250px;
+  margin: auto;
+  display: none;
+  }
+  .page-form .form-group label {
+  width: 45%;
+  display: inline-block;
+  text-align: right;
+  padding-right: 18px;
+  vertical-align: top;
+  font-size: 18px;
+  line-height: 36px;
+  max-width: 270px;
+  box-sizing: border-box;
+  }
+  .page-form .field {
+  border: medium none;
+  background: none repeat scroll 0% 0% #E2E2E2;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+  }
+  .page-form .form-group select{
+  background: none repeat scroll 0% 0% #E2E2E2;
+  font-family: "Open Sans",sans-serif;
+  font-size: 16px;
+  padding: 10px 0;
+  border: 0;
+  width: 54%;
+  }
+  .page-form .form-group input, .page-form .form-group textarea, .page-form .form-group .sbHolder, .page-form .arlet-list {
+  width: 54%;
+  min-width: 54%;
+  }
+  .page-form .button,.page-form input[name='submit-laithu'] {
+  border: medium none;
+  background-color: #e11428;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFF;
+  cursor: pointer;
+  padding: 8px 24px;
+  margin-left: 2px;
+  width: 80px !important;
+  display: inline-block;
+  min-width: 80px;
+  }
+@media (max-width: 768px){
+
+.page-form .form-group {
+    padding: 10px;
+}
+.page-form .form-group h2 {
+    margin: 10px 0;
+    font-size: 17px;
+}
+.page-form.booking .form-group p {
+    width: 100%;
+    padding: 0;
+    margin: 0 0 10px;
+}
+.page-form .form-group label {
+    width: 110px;
+    font-size: 14px;
+}
+.page-form .form-group input, .page-form .form-group textarea, .page-form .form-group .sbHolder, .page-form .arlet-list {
+    width: calc(100% - 133px);
+}
+.page-form .form-group p.booking-preview-vehicle img {
+    max-width: 100%;
+    margin: auto;
+}
+}
+input[name='submit-laithu']{}
+/*End lái thử*/

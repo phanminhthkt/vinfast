@@ -3,9 +3,12 @@
         <img class="left" src="<?=UPLOAD_PRODUCT_L.$row_detail['banner']?>" alt="<?=$row_detail['ten'.$lang]?>"/>
         <div id="car-heading">
             <h1><?=$row_detail['ten'.$lang]?></h1>
-            <h2>Fadil Tiêu Chuẩn giá chỉ 382,500,000₫</h2>
-            <h2>Fadil Nâng Cấp giá chỉ 413,100,000₫</h2>
-            <h2>Fadil Cao Cấp giá chỉ 449,100,000₫</h2>       
+
+            <?php 
+            if(count($arr_mauxe_detail)){
+            foreach($arr_mauxe_detail as $v_mauxe){ ?>
+                <h2><?=$v_mauxe['mauxe']?> giá chỉ <?=(isset($v_mauxe['giabanle']) && $v_mauxe['giabanle']!=0 ) ? $func->format_money($v_mauxe['giabanle']) : 'Liên hệ'?></h2>
+            <?php } } ?>
         </div>
     </div>
 </div>

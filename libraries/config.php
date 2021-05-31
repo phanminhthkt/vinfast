@@ -72,7 +72,7 @@
 		),
 		'googleAPI' => array(
 			'recaptcha' => array(
-				'active' => true,
+				'active' => false,
 				'urlapi' => 'https://www.google.com/recaptcha/api/siteverify',
 				'sitekey' => '6LfzRW8aAAAAAGi4HGREnmbkbZ0AvpLvLvFWHTDu',
 				'secretkey' => '6LfzRW8aAAAAAOC5Wx17pYu6aQ8w-8OCg0Gm61rV'

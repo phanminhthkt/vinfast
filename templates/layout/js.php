@@ -49,6 +49,10 @@
                 var recaptchaResponseNewsletter = document.getElementById('recaptchaResponseBaogiaPopup');
                 recaptchaResponseNewsletter.value = token;
             });
+            grecaptcha.execute('<?=$config['googleAPI']['recaptcha']['sitekey']?>', { action: 'laithu' }).then(function (token) {
+                var recaptchaResponseNewsletter = document.getElementById('recaptchaResponseLaithu');
+                recaptchaResponseNewsletter.value = token;
+            });
             grecaptcha.execute('<?=$config['googleAPI']['recaptcha']['sitekey']?>', { action: 'Baogia' }).then(function (token) {
                 var recaptchaResponseNewsletter = document.getElementById('recaptchaResponseBaogia');
                 recaptchaResponseNewsletter.value = token;

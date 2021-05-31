@@ -51,7 +51,7 @@
                     <?php if(isset($config['newsletter'][$type]['loaixe']) && $config['newsletter'][$type]['loaixe'] == true) { ?>
                         <div class="form-group col-md-4">
                             <label for="loaixe">Loại xe:</label>
-                            <input type="text" class="form-control" name="data[loaixe]" id="loaixe" placeholder="Điện thoại" value="<?=@$item['loaixe']?>">
+                            <input type="text" class="form-control" name="data[loaixe]" id="loaixe" placeholder="Loại xe" value="<?=@$item['loaixe']?>">
                         </div>
                     <?php } ?>
                     <?php if(isset($config['newsletter'][$type]['hinhthucthanhtoan']) && $config['newsletter'][$type]['hinhthucthanhtoan'] == true) { ?>

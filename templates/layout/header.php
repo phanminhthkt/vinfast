@@ -18,15 +18,20 @@
 	</div>
 	<div id="header-car">
 		<div class="container">
+				<?php foreach($proall as $v){ ?>
 			<div class="header-car">
-				<a href="/xe-vinfast-fadil">
-					<img src="/content/VINFAST/san-pham/Fadil_Red.png" alt="Xe VinFast Fadil">
+				<a href="<?=$v[$sluglang]?>">
+					<img src="<?=THUMBS?>/215x125x1/<?=UPLOAD_PRODUCT_L.$v['photo']?>" alt="<?=$v['ten'.$lang]?>">
 					<label>Xe VinFast Fadil</label>
-					<span>Giá từ 382,500,000₫ 
-						<del>425,000,000₫</del>
+					<span>Giá từ <?=(isset($v['gia']) && $v['gia']!=0 ) ? $func->format_money($v['gia'],'đ') : 'Liên hệ'?>
+
+					<?php if($v['giacu']!=0){ ?>
+						<del><?=(isset($v['giacu']) && $v['giacu']!=0 ) ? $func->format_money($v['giacu'],'đ') : 'Liên hệ'?></del>
+					<?php } ?>
 					</span>
 				</a>
 			</div>
+				<?php } ?>
 		</div>
 	</div>
 </header>

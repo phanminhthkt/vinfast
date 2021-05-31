@@ -521,7 +521,7 @@
                         <a class="nav-link <?=$active?>" href="#" title="Quản lý báo giá">
                             <i class="nav-icon text-sm fas fa-envelope"></i>
                             <p>
-                                Quản lý báo giá
+                                Quản lý báo giá - Lái thử
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>

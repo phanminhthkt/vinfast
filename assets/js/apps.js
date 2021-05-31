@@ -1,6 +1,6 @@
 /* Validation form */
 ValidationFormSelf("validation-newsletter");
-ValidationFormSelf("validation-baogia");
+ValidationFormSelf("validation-laithu");
 ValidationFormSelf("validation-baogia_popup");
 ValidationFormSelf("validation-cart");
 ValidationFormSelf("validation-user");
@@ -10,6 +10,63 @@ ValidationFormSelf("validation-contact");
 $.fn.exists = function(){
     return this.length;
 };
+
+$(document).ready(function() {
+    $('input#deposit').keyup(function() {
+        var value = parseInt($(this).val());
+        if ($(this).val() !== "") {
+            value = parseInt($(this).val().replace(/\+/g, ' ').replace(/\,/g, ''));
+            $(this).val(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+    });
+    $('input#deposit').change(function() {
+        var min = parseInt($(this).attr("min"));
+        var max = parseInt($(this).attr("max"));
+        var value = parseInt($(this).val());
+        if ($(this).val() !== "") {
+            value = parseInt($(this).val().replace(/\,/g, ''));
+            if (value < min) {
+                value = min;
+            }
+            if (value > max) {
+                value = max;
+            }
+            $(this).val(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        } else {
+            value = min;
+            $(this).val(value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+    });
+    $('input#deposit').keypress(function(event) {
+        if (event.which != 8 && isNaN(String.fromCharCode(event.which))) {
+            event.preventDefault(); //stop character from entering input
+        }
+    });
+    $("select").change(function() {
+        fee();
+    });
+    $("select#price").change(function() {
+
+    });
+});
+$(document).ready(function(){
+    if($(window).width() > 1000){
+        $("#header-car-menu").mouseover(function() {$('#header-car').css('display','block');}).mouseout(function() {$('#header-car').css('display','none');});
+        $("#header-car").mouseover(function() {
+            $('#header-car').css('display','block');
+            $("#header-car-menu").css('background','#f2f2f2');
+        }).mouseout(function() {
+            $('#header-car').css('display','none');
+            $("#header-car-menu").css('background','');
+        });
+    }
+
+    $('#booking_select_vehicle_preview').change(function() {
+        $('.booking-preview-vehicle img').css('display','none');
+        var id = 'id-' + $('#booking_select_vehicle_preview option:selected').attr('data-id');
+        $('.booking-preview-vehicle img.' + id).css('display','table');
+    });
+});
 
 /* Paging ajax */
 if($(".paging-product").exists())
@@ -831,3 +888,4 @@ $(document).ready(function(){
 
     // NN_FRAMEWORK.Monnoibat();
 });
+

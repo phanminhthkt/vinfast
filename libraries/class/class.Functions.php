@@ -1799,7 +1799,9 @@
 				<?php foreach($array as $v){ ?>
 				<div class="col col-md-4 col-12">
 					<a href="<?=$v[$sluglang]?>" class="module-car">
-						<img src="<?=UPLOAD_PRODUCT_L.$v['banner']?>" alt="<?=$v['ten'.$lang]?>" class="left">
+						<div class="scale-img">
+							<img src="<?=UPLOAD_PRODUCT_L.$v['banner']?>" alt="<?=$v['ten'.$lang]?>" class="left">
+						</div>
 						<h3 class="name">
 							<?=$v['ten'.$lang]?>
 							<b>Giá từ:

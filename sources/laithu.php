@@ -1,117 +1,24 @@
-<?php
-    if(!defined('SOURCES')) die("Error");
+<?php 
+	if(!defined('SOURCES')) die("Error");
 
-    /* Query allpage */
-    $favicon = $d->rawQueryOne("select photo from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('favicon','photo_static'));
-    
-    $logo = $d->rawQueryOne("select id, photo from #_photo where type = ? and act = ? limit 0,1",array('logo','photo_static'));
-
-    $banner = $d->rawQueryOne("select id, photo from #_photo where type = ? and act = ? limit 0,1",array('banner','photo_static'));
-
-    $slogan = $d->rawQueryOne("select ten$lang from #_static where type = ? limit 0,1",array('slogan'));
-    
-    $slogan_footer = $d->rawQueryOne("select ten$lang from #_static where type = ? limit 0,1",array('slogan-footer'));
-    $noidungbaogia = $d->rawQueryOne("select noidung$lang from #_static where type = ? limit 0,1",array('noi-dung-bao-gia'));
-
-    $slider = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('slide'));
-
-    $footer = $d->rawQueryOne("select ten$lang, noidung$lang from #_static where type = ? limit 0,1",array('footer'));
-
-    $descBaogia = $d->rawQueryOne("select ten$lang, noidung$lang from #_static where type = ? limit 0,1",array('content-baogia'));
-    
-    $proall = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, motangan$lang, ngaytao, id, photo,gia,banner from #_product where type = ? and hienthi > 0 order by stt asc",array('san-pham'));
-
-    $cs = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('chinh-sach'));
-
-    $social = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('mangxahoi'));
-    $social_top = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('mangxahoitop'));
-    $social_footer = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('mangxahoifooter'));
-    /* Get statistic */
-    $counter = $statistic->getCounter();
-    $online = $statistic->getOnline();
-
-    /* Newsletter */
-    if(isset($_POST['submit-newsletter']))
-    {
-        $responseCaptcha = $_POST['recaptcha_response_newsletter'];
+	if(isset($_POST['submit-laithu']))
+	{
+		$responseCaptcha = $_POST['recaptcha_response_laithu'];
         $resultCaptcha = $func->checkRecaptcha($responseCaptcha);
         $scoreCaptcha = (isset($resultCaptcha['score'])) ? $resultCaptcha['score'] : 0;
         $actionCaptcha = (isset($resultCaptcha['action'])) ? $resultCaptcha['action'] : '';
         $testCaptcha = (isset($resultCaptcha['test'])) ? $resultCaptcha['test'] : false;
 
-        if(($scoreCaptcha >= 0.5 && $actionCaptcha == 'Newsletter') || $testCaptcha == true)
-        {
-            $data = array();
-            $data['email'] = (isset($_REQUEST['email-newsletter']) && $_REQUEST['email-newsletter'] != '') ? htmlspecialchars($_REQUEST['email-newsletter']) : '';
-            $data['ten'] = (isset($_REQUEST['name-newsletter']) && $_REQUEST['name-newsletter'] != '') ? htmlspecialchars($_REQUEST['name-newsletter']) : '';
-            $data['diachi'] = (isset($_REQUEST['address-newsletter']) && $_REQUEST['address-newsletter'] != '') ? htmlspecialchars($_REQUEST['address-newsletter']) : '';
-            $data['dienthoai'] = (isset($_REQUEST['phone-newsletter']) && $_REQUEST['phone-newsletter'] != '') ? htmlspecialchars($_REQUEST['phone-newsletter']) : '';
-            $data['noidung'] = (isset($_REQUEST['noidung-newsletter']) && $_REQUEST['noidung-newsletter'] != '') ? htmlspecialchars($_REQUEST['noidung-newsletter']) : '';
-            $data['ngaytao'] = time();
-            $data['type'] = 'dangkynhantin';
-
-            if($d->insert('newsletter',$data))
-            {
-                $func->transfer("Đăng ký nhận tin thành công. Chúng tôi sẽ liên hệ với bạn sớm.",$config_base);
-            }
-            else
-            {
-                $func->transfer("Đăng ký nhận tin thất bại. Vui lòng thử lại sau.",$config_base, false);
-            }
-        }
-        else
-        {
-            $func->transfer("Đăng ký nhận tin thất bại. Vui lòng thử lại sau.",$config_base, false);
-        }
-    }
-
-    if(isset($_POST['submit-baogia']))
-    {
-        $responseCaptcha = $_POST['recaptcha_response_baogia'];
-        $resultCaptcha = $func->checkRecaptcha($responseCaptcha);
-        $scoreCaptcha = (isset($resultCaptcha['score'])) ? $resultCaptcha['score'] : 0;
-        $actionCaptcha = (isset($resultCaptcha['action'])) ? $resultCaptcha['action'] : '';
-        $testCaptcha = (isset($resultCaptcha['test'])) ? $resultCaptcha['test'] : false;
-
-        if(($scoreCaptcha >= 0.5 && $actionCaptcha == 'Baogia') || $testCaptcha == true)
-        {
-            $data = array();
-            $data['dienthoai'] = (isset($_REQUEST['phone-newsletter']) && $_REQUEST['phone-newsletter'] != '') ? htmlspecialchars($_REQUEST['phone-newsletter']) : '';
-            $data['type'] = 'yeucaubaogia';
-            $data['ngaytao'] = time();
-
-            if($d->insert('newsletter',$data))
-            {
-                $func->transfer("Đăng ký nhận báo giá thành công. Chúng tôi sẽ liên hệ với bạn sớm.",$config_base);
-            }
-            else
-            {
-                $func->transfer("Đăng ký nhận báo giá thất bại. Vui lòng thử lại sau.",$config_base, false);
-            }
-        }
-        else
-        {
-            $func->transfer("Đăng ký nhận báo giá thất bại. Vui lòng thử lại sau.",$config_base, false);
-        }
-    }
-    if(isset($_POST['submit-baogia_popup']))
-    {
-        $responseCaptcha = $_POST['recaptcha_response_baogia_popup'];
-        $resultCaptcha = $func->checkRecaptcha($responseCaptcha);
-        $scoreCaptcha = (isset($resultCaptcha['score'])) ? $resultCaptcha['score'] : 0;
-        $actionCaptcha = (isset($resultCaptcha['action'])) ? $resultCaptcha['action'] : '';
-        $testCaptcha = (isset($resultCaptcha['test'])) ? $resultCaptcha['test'] : false;
-
-        if(($scoreCaptcha >= 0.5 && $actionCaptcha == 'BaogiaPopup') || $testCaptcha == true)
-        {
-            $data = array();
+        if(($scoreCaptcha >= 0.5 && $actionCaptcha == 'laithu') || $testCaptcha == true)
+		{
+        $data = array();
              $data['email'] = (isset($_REQUEST['email']) && $_REQUEST['email'] != '') ? htmlspecialchars($_REQUEST['email']) : '';
             $data['ten'] = (isset($_REQUEST['name']) && $_REQUEST['name'] != '') ? htmlspecialchars($_REQUEST['name']) : '';
             $data['diachi'] = (isset($_REQUEST['address']) && $_REQUEST['address'] != '') ? htmlspecialchars($_REQUEST['address']) : '';
             $data['dienthoai'] = (isset($_REQUEST['phone']) && $_REQUEST['phone'] != '') ? htmlspecialchars($_REQUEST['phone']) : '';
             $data['loaixe'] = (isset($_REQUEST['loaixe']) && $_REQUEST['loaixe'] != '') ? htmlspecialchars($_REQUEST['loaixe']) : '';
             // $data['hinhthucthanhtoan'] = (isset($_REQUEST['hinhthucthanhtoan']) && $_REQUEST['hinhthucthanhtoan'] != '') ? htmlspecialchars($_REQUEST['hinhthucthanhtoan']) : '';
-            $data['type'] = 'dangkybaogia';
+            $data['type'] = 'dangkylaithu';
             $data['ngaytao'] = time();
             $d->insert('newsletter',$data);
 
@@ -353,7 +260,7 @@
 
             /* Send email admin */
             $arrayEmail = null;
-            $subject = "Thư báo giá từ ".$data['ten'];
+            $subject = "Thư đăng ký lái thử từ ".$data['ten'];
             $message = $contentAdmin;
             $file = 'file';
 
@@ -370,13 +277,38 @@
                 $message = $contentCustomer;
                 $file = 'file';
 
-                if($emailer->sendEmail("customer", $arrayEmail, $subject, $message, $file)) $func->transfer("Gửi đăng ký báo giá thành công",$config_base);
+                if($emailer->sendEmail("customer", $arrayEmail, $subject, $message, $file)) $func->transfer("Gửi đăng ký lái thử thành công",$config_base);
             }
-            else $func->transfer("Gửi đăng ký báo giá thất bại. Vui lòng thử lại sau",$config_base, false);
+            else $func->transfer("Gửi đăng ký lái thử thất bại. Vui lòng thử lại sau",$config_base, false);
         }
         else
         {
-            $func->transfer("Đăng ký nhận báo giá thất bại. Vui lòng thử lại sau.",$config_base, false);
+            $func->transfer("Đăng ký lái thử thất bại. Vui lòng thử lại sau.",$config_base, false);
         }
-    }
+	}
+
+	/* SEO */
+	$seopage = $d->rawQueryOne("select * from #_seopage where type = ? limit 0,1",array('lai-thu'));
+	$seo->setSeo('h1',$title_crumb);
+	if($seopage['title'.$seolang]!='') $seo->setSeo('title',$seopage['title'.$seolang]);
+	else $seo->setSeo('title',$title_crumb);
+	$seo->setSeo('keywords',$seopage['keywords'.$seolang]);
+	$seo->setSeo('description',$seopage['description'.$seolang]);
+	$seo->setSeo('url',$func->getPageURL());
+	$img_json_bar = (isset($seopage['options']) && $seopage['options'] != '') ? json_decode($seopage['options'],true) : null;
+	if($img_json_bar['p'] != $seopage['photo'])
+	{
+		$img_json_bar = $func->getImgSize($seopage['photo'],UPLOAD_SEOPAGE_L.$seopage['photo']);
+		$seo->updateSeoDB(json_encode($img_json_bar),'seopage',$seopage['id']);
+	}
+	$seo->setSeo('photo',$config_base.THUMBS.'/'.$img_json_bar['w'].'x'.$img_json_bar['h'].'x2/'.UPLOAD_SEOPAGE_L.$seopage['photo']);
+	$seo->setSeo('photo:width',$img_json_bar['w']);
+	$seo->setSeo('photo:height',$img_json_bar['h']);
+	$seo->setSeo('photo:type',$img_json_bar['m']);
+	
+    $lienhe = $d->rawQueryOne("select noidung$lang from #_static where type = ? limit 0,1",array('lienhe'));
+
+	/* breadCrumbs */
+	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
+	$breadcrumbs = $breadcr->getBreadCrumbs();
 ?>

@@ -180,7 +180,18 @@
 			$type = $com;
 			$title_crumb = khuyenmai;
 			break;
-
+		case 'lai-thu':
+			$source = "laithu";
+			$template = 'form/laithu';
+			$type = $com;
+			$title_crumb = 'Lái thử';
+			break;	
+		case 'du-toan':
+			$source = "dutoan";
+			$template = 'form/dutoan';
+			$type = $com;
+			$title_crumb = 'Dự toán';
+			break;		
 		// case 'gio-hang':
 		// 	$source = "order";
 		// 	$template = 'order/order';
